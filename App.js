@@ -38,18 +38,14 @@ export default App = () => {
         setTimeout (() => {
           manager.stopDeviceScan();
         }, 5000)
-*/
+      */
+
       if (device.name === "DSD TECH" || device.name === "SensorTag") {
         console.log("Connecting to DSD TECH");
         console.log("UUID");
-        const services = device.services();
-        console.log("Services:", services);
-        const characteristics = services[1].characteristics();
-        console.log("Characteristics:", characteristics);
-
-        console.log("characteristics for service");
-        console.log(device.characteristicsForService(device.serviceUUIDs));
-
+        console.log(device.serviceUUIDs);
+        console.log(device.id);
+        console.log(device.readCharacteristicForService);
         manager.stopDeviceScan();
         device
           .connect()
@@ -59,17 +55,36 @@ export default App = () => {
           })
           .then((device) => {
             console.log("Setting notifications");
-            device
-              .writeCharacteristicWithResponseForService(
-                device.serviceUUIDs,
-                "34cd",
-                "aGVsbG8gbWlzcyB0YXBweQ=="
-              )
-              .then((characteristic) => {
-                console.log(characteristic.value);
-                return;
+
+            let characteristics = [];
+
+            // first, get all the services advertised by the device
+            device.services().then((services) => {
+              const characteristics = [];
+
+              // second, get the characteristics for each service
+              services.forEach((service, i) => {
+                service.characteristics().then((c) => {
+                  characteristics.push(c);
+
+                  if (i === services.length - 1) {
+                    /**
+                     *  Here we log an array of arrays so you can cherrypick UUID's
+                     *  as well as info on how they can be used.
+                     *
+                     *  You should figure out which characteristics you need,
+                     *  and grab the serviceUUID and characteristicUUID, saving them
+                     *  as constants to use later when reading/writing/monitoring.
+                     *
+                     *  Once you have constants set up, you can scrap this and
+                     *  just use the device or BleManager after connecting.
+                     */
+
+                    console.log(characteristics);
+                  }
+                });
               });
-            //return this.setupNotifications(device)
+            });
           })
           .then(
             () => {
@@ -80,9 +95,6 @@ export default App = () => {
             }
           );
       }
-
-      //console.log(test)
-      //console.log(this.devices)
     });
   }
 
