@@ -1,0 +1,12 @@
+{
+  "name": "Bluetooth-React-Native",
+  "displayName": "Bluetooth-React-Native",
+  "expo": {
+    "name": "Bluetooth-React-Native",
+    "slug": "Bluetooth-React-Native",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

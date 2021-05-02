@@ -1,0 +1,6 @@
+module Pods_BluetoothReactNative {
+  umbrella header "Pods-BluetoothReactNative-umbrella.h"
+
+  export *
+  module * { export * }
+}
