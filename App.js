@@ -44,7 +44,10 @@ export default App = () => {
         console.log("Connecting to DSD TECH");
         console.log("UUID");
         console.log(device.serviceUUIDs);
+        console.log("ID");
         console.log(device.id);
+        console.log("service Data");
+        console.log(device.serviceData);
         console.log(device.readCharacteristicForService);
         manager.stopDeviceScan();
         device
@@ -61,7 +64,7 @@ export default App = () => {
             // first, get all the services advertised by the device
             device.services().then((services) => {
               const characteristics = [];
-
+              /*
               // second, get the characteristics for each service
               services.forEach((service, i) => {
                 service.characteristics().then((c) => {
@@ -78,12 +81,13 @@ export default App = () => {
                      *
                      *  Once you have constants set up, you can scrap this and
                      *  just use the device or BleManager after connecting.
-                     */
+                     
 
                     console.log(characteristics);
                   }
                 });
               });
+              */
             });
           })
           .then(
